@@ -7,25 +7,26 @@ const chainMaker = {
     return this.chain.length;
   },
   addLink(value) {
-    if (value === undefined) value = '';
     this.chain.push(value+'');
-//    console.log(this.chain);
     return this;
   },
   removeLink(position) {
-    //if (this.getLength() < position)
-    //console.log(this.chain);
-    this.chain.splice(position-1, 1);
-    //console.log(this.chain);
-    return this;
-    //throw new CustomError('Not implemented');
+    if (typeof(position) === 'number' && position > 0){
+      this.chain.splice(position-1, 1);
+      return this;
+    }else{
+      this.chain = [];
+      throw new Error('Wrong position');
+    }
   },
   reverseChain() {
     this.chain.reverse();
     return this;
   },
   finishChain() {
-    return '( '+this.chain.join(' )~~( ')+' )';
+    let rr = '( '+this.chain.join(' )~~( ')+' )';
+    this.chain = [];
+    return rr;
   }
 };
 
